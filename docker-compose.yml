@@ -5,7 +5,7 @@ services:
         container_name: vaultwarden-backup
         hostname: vaultwarden-backup
         network_mode: bridge
-        restart: none
+        restart: on-failure:3
         stdin_open: true
         tty: true
 
