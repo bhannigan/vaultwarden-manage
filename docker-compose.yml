@@ -17,7 +17,10 @@ services:
               source: certificates
               target: /ssl
               read_only: true
-
+              
+        labels:
+            certificate: "hannigan.ca"
+            
 #        deploy:
 #            resources:
 #                limits:
