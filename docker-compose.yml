@@ -53,6 +53,6 @@ volumes:
 #        external:
 #            name: vaultwarden_data
     certificates:
-        external:
-            name: certificates
+        name: certificates
+            external: true
   
