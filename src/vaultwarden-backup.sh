@@ -2,8 +2,8 @@
 
   CONTAINER=vaultwarden
   TIMESTAMP=$(date '+%Y%m%d-%H%M')
-  VAULTWARDEN_HOME=/volume1/docker/vaultwarden
-  VAULTWARDEN_BACKUP=/volume1/backup/vaultwarden
+  VAULTWARDEN_HOME=/data
+  VAULTWARDEN_BACKUP=/backup
   BACKUP_FILE=${VAULTWARDEN_BACKUP}/vaultwarden-${TIMESTAMP}.tgz
 
 
