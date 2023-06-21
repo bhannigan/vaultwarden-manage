@@ -1,50 +1,23 @@
 version: '3.9'
 services:
     vaultwarden-backup:
-        image: vaultwarden/server
+        image: bhannigan/vaultwarden-backup
         container_name: vaultwarden-backup
         hostname: vaultwarden-backup
-        network_mode: bridge
+        network_mode: host
         restart: on-failure:3
         stdin_open: true
         tty: true
+        build: ./build
 
         volumes:
             - type: volume
               source: data
               target: /data
-            - type: volume
-              source: certificates
-              target: /ssl
-              read_only: true
+            - type: bind
+              source: /volume1/backup/vaultwarden
+              target: /backup
               
-        labels:
-            certificate: "hannigan.ca"
-            
-#        deploy:
-#            resources:
-#                limits:
-#                    memory: 16M
-
-# reverse proxy:
-#    name: vaultwarden
-#    src: https://vaultwarden-backup.hannigan.ca:443
-#    dst: https://vaultwarden-backup.hannigan.ca:5013
-#    hsts: enabled
-
-        environment:
-         - ROCKET_ADDRESS=0.0.0.0
-         - ROCKET_PORT=5013
-         - ROCKET_PROFILE='release'
-         - ROCKET_TLS={certs="/ssl/hannigan.ca/hannigan.ca.cer",key="/ssl/hannigan.ca/hannigan.ca.key"}
-         - WEBSOCKET_ENABLED='true'
-         - WEBSOCKET_PORT=5012
-         - SIGNUPS_ALLOWED='false'
-         - ADMIN_TOKEN='$$argon2id$$v=19$$m=65540,t=3,p=4$$MHkY5Rs8ss6LA5YGxmlE7Fl6t7K06hen8Lzg7u2zA70$$MDe73xqcdN3NQVHntulg7VPBV4jfTZdQ+bUNja4Cltw'
-        ports:
-            - 5013:3013
-            - 5012:3012
-
         logging:
             driver: syslog
             options:
@@ -53,8 +26,6 @@ services:
 
 volumes:
     data:
-#        external:
-#            name: vaultwarden_data
-    certificates:
-        external: true
+        external:
+            name: vaultwarden_data
   
