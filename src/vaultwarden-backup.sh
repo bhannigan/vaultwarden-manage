@@ -1,54 +1,31 @@
 #!/bin/sh
 
-  CONTAINER=vaultwarden
+  if [ -z "${CONTAINER}" ]; then
+    echo CONTAINER environment not set
+    exit 1
+  fi
+  
   TIMESTAMP=$(date '+%Y%m%d-%H%M')
-  VAULTWARDEN_HOME=/data
+  VAULTWARDEN_DATA=/data
   VAULTWARDEN_BACKUP=/backup
-  BACKUP_FILE=${VAULTWARDEN_BACKUP}/vaultwarden-${TIMESTAMP}.tgz
-
+  BACKUP_FILE=${VAULTWARDEN_BACKUP}/${CONTAINER}-${TIMESTAMP}.tgz
 
   # check output directory exists
 
   if [ ! -d ${VAULTWARDEN_BACKUP} ]; then
     echo output directory \'${VAULTWARDEN_BACKUP}\' does not exist
-        exit 1
+    exit 1
   fi
 
-  # get the container ID
-
-  ID=`docker ps | grep ${CONTAINER} | cut -d' ' -f1`
-
-  # cd to container home
-
-  cd ${VAULTWARDEN_HOME}
-
-  if [ $PWD != "${VAULTWARDEN_HOME}" ]; then
-    echo failed to change directory to '${VAULTWARDEN_HOME}'
-        exit 1
-  fi
-
-  # stop the container
-
-  # echo stopping container \'${CONTAINER}\'
-
-  docker container stop --time 30 ${CONTAINER} >& /dev/null
-
-  STATUS=`docker ps | grep ${CONTAINER}`
-
-  if [ ${STATUS} ]; then
-    echo failed to stop container \'${CONTAINER}\'. \$docker ps output was:
-        echo ${STATUS}
-        exit 1
-  fi
+  cd /data
 
   # backup the sqlite3 database
 
-  sqlite3 data/db.sqlite3 "VACUUM INTO './db-${TIMESTAMP}.sqlite3'"
+  sqlite3 db.sqlite3 "VACUUM INTO './db-${TIMESTAMP}.sqlite3'"
 
   # copy database backup and attachments to backup directory
 
-
-  tar cfz ${BACKUP_FILE} data/attachments db-${TIMESTAMP}.sqlite3
+  tar cfz ${BACKUP_FILE} attachments db-${TIMESTAMP}.sqlite3
 
   if [ ! -f ${BACKUP_FILE} ]; then
     echo failed to create backup file \'${BACKUP_FILE}\'
@@ -57,18 +34,5 @@
   # remove backup copy of database
 
   rm db-${TIMESTAMP}.sqlite3
-
-  # restart container
-
-  # echo starting container \'${CONTAINER}\'
-
-  docker container start ${CONTAINER} >& /dev/null
-
-  STATUS=`docker ps | grep ${CONTAINER}`
-
-  if [ "${STATUS}" == "" ]; then
-    echo failed to start container '${CONTAINER}'.
-        exit 1
-  fi
 
   exit 0
