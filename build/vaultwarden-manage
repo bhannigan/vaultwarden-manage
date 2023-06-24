@@ -3,6 +3,7 @@
 
 # determine what to do
   OPERATION=$1 
+  shift
   
   TIMESTAMP=$(date '+%Y%m%d-%H%M')  
   
