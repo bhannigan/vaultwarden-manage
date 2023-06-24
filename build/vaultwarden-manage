@@ -8,7 +8,8 @@
   TIMESTAMP=$(date '+%Y%m%d-%H%M')  
   
   if [ -z "${CONTAINER}" ]; then
-    usage backup "env variable CONTAINER not declared"
+    echo "env variable CONTAINER not declared"
+    exit 1
   fi
   
 # check directories exists
@@ -67,7 +68,7 @@ function vw-export () {
 }
 
 ###
-case $OPERATION in
+case ${OPERATION} in
   backup)
     vw-backup $*
     ;;
