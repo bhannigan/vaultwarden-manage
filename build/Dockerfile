@@ -1,5 +1,5 @@
   FROM phusion/baseimage:jammy-1.0.1
-
+  
   ARG DEBIAN_FRONTEND=noninteractive
 
   RUN apt-get update \
@@ -8,6 +8,6 @@
    && apt-get clean \
    && rm -rf /var/lib/apt/lists/*
 
-  ADD --chmod=544 https://github.com/bhannigan/vaultwarden-manage/src/vaultwarden-manage /
+  ADD --chmod=544 https://<token>:x-oauth-basic@github.com/bhannigan/vaultwarden-manage/src/vaultwarden-manage /
   
   ENTRYPOINT [ "/vaultwarden-manage" ]
