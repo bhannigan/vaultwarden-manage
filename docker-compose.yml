@@ -1,22 +1,22 @@
 version: '3.9'
 services:
     vaultwarden-backup:
-        image: bhannigan/vaultwarden-backup
-        container_name: vaultwarden-backup
-        hostname: vaultwarden-backup
+        image: bhannigan/vaultwarden-manage
+        container_name: vaultwarden-manage
+        hostname: vaultwarden-manage
         network_mode: host
         restart: on-failure:3
         stdin_open: true
         tty: true
         build: ./build
 
-        volumes:
-            - type: volume
-              source: data
-              target: /data
-            - type: bind
-              source: /volume1/backup/vaultwarden
-              target: /backup
+#        volumes:
+#            - type: volume
+#              source: data
+#              target: /data
+#            - type: bind
+#              source: /volume1/backup/vaultwarden
+#              target: /backup
               
         logging:
             driver: syslog
