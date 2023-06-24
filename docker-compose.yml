@@ -1,6 +1,6 @@
 version: '3.9'
 services:
-    vaultwarden-backup:
+    vaultwarden-manage:
         image: bhannigan/vaultwarden-manage
         container_name: vaultwarden-manage
         hostname: vaultwarden-manage
