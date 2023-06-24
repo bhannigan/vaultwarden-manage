@@ -8,6 +8,6 @@
    && apt-get clean \
    && rm -rf /var/lib/apt/lists/*
 
-  ADD --chmod=544 https://<token>:x-oauth-basic@github.com/bhannigan/vaultwarden-manage/src/vaultwarden-manage /
+  ADD --chmod=544 https://${TOKEN}:x-oauth-basic@github.com/bhannigan/vaultwarden-manage/src/vaultwarden-manage /
   
   ENTRYPOINT [ "/vaultwarden-manage" ]
