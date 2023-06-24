@@ -1,7 +1,7 @@
 version: '3.9'
 services:
     vaultwarden-manage:
-        image: vaultwarden-manage
+        #image: vaultwarden-manage
         container_name: vaultwarden-manage
         hostname: vaultwarden-manage
         network_mode: bridge
