@@ -2,7 +2,7 @@
 #
 
 # determine what to do
-  local OPERATION=$1 
+  local OPERATION=$1 \
     && shift
   
   TIMESTAMP=$(date '+%Y%m%d-%H%M')  
