@@ -9,6 +9,6 @@
    && rm -rf /var/lib/apt/lists/*
 
   COPY https://github.com/bhannigan/vaultwarden-manage/src/vaultwarden-manage /
-  RUN chmod +x /vaultwarden-manage
+  RUN ["chmod", "+x", "/vaultwarden-manage"]
 
   ENTRYPOINT [ "/vaultwarden-manage" ]
