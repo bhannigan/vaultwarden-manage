@@ -8,7 +8,7 @@
    && apt-get clean \
    && rm -rf /var/lib/apt/lists/*
 
-  COPY https://github.com/bhannigan/vaultwarden-backup/src/vaultwarden-backup.sh /
-  COPY https://github.com/bhannigan/vaultwarden-backup/src/vaultwarden-restore.sh /
+  COPY https://github.com/bhannigan/vaultwarden-manage/src/vaultwarden-manage /
+  RUN chmod +x /vaultwarden-manage
 
-  ENTRYPOINT [ "/vaultwarden-manage.sh" ]
+  ENTRYPOINT [ "/vaultwarden-manage" ]
