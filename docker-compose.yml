@@ -1,6 +1,7 @@
 version: '3.9'
 services:
     vaultwarden-manage:
+        build: ./build
 #        image: vaultwarden-manage
         container_name: vaultwarden-manage
         hostname: vaultwarden-manage
@@ -8,7 +9,6 @@ services:
         restart: on-failure:3
         stdin_open: true
         tty: true
-        build: ./build
 
 #        volumes:
 #            - type: volume
