@@ -1,0 +1,82 @@
+#!/bin/bash
+#
+
+# determine what to do
+  local OPERATION=$1 
+    && shift
+  
+  TIMESTAMP=$(date '+%Y%m%d-%H%M')  
+  
+  if [ -z "${CONTAINER}" ]; then
+    usage backup "env variable CONTAINER not declared"
+  fi
+  
+# check directories exists
+  SRC=/src
+  DST=/dst
+  
+  if [ ! -d ${SRC} ]; then
+    echo input directory \'${SRC}\' does not exist
+    exit 1
+  fi
+  if [ ! -d ${DST} ]; then
+    echo output directory \'${DST}\' does not exist
+    exit 1
+  fi
+
+## -- vaultwarden backup --
+##
+
+function vw-backup () {
+  BACKUP_FILE=${DEST}/${CONTAINER}-${TIMESTAMP}.tgz
+  
+  cd ${SRC}
+  
+  # backup the sqlite3 database
+  sqlite3 db.sqlite3 "VACUUM INTO './db-${TIMESTAMP}.sqlite3'"
+
+  # copy database backup and attachments folder into tarball
+  tar cfz ${BACKUP_FILE} attachments db-${TIMESTAMP}.sqlite3
+
+  if [ ! -f ${BACKUP_FILE} ]; then
+    echo failed to create backup file \'${BACKUP_FILE}\'
+  fi
+
+  # remove backup copy of database
+  rm db-${TIMESTAMP}.sqlite3
+
+  exit 0
+}
+
+function vw-restore () {
+}
+
+function vw-export () {
+  EXPORT_FILE=${DST}/${CONTAINER}-${TIMESTAMP}.txt
+
+  cd ${SRC}
+  
+  # backup the sqlite3 database
+  sqlite3 db.sqlite3 "EXPORT INTO '${EXPORT_FILE}'"
+
+  if [ ! -f ${EXPORT_FILE} ]; then
+    echo failed to create export file \'${EXPORT_FILE}\'
+  fi
+
+  exit 0
+}
+
+###
+case $OPERATION in
+  backup)
+    vw-backup $*
+    ;;
+
+  restore)
+    vw-restore $*
+    ;;
+
+  export)
+    vw-export $*
+    ;;
+  esac
