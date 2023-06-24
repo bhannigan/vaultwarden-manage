@@ -24,8 +24,8 @@ services:
                 syslog-address: 'udp://syslog.hannigan.ca:514'
                 tag: '{{.Name}}'
 
-volumes:
-    data:
-        external:
-            name: vaultwarden_data
+#volumes:
+#    data:
+#        external:
+#            name: vaultwarden_data
   
