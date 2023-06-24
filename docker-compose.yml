@@ -1,6 +1,6 @@
 version: '3.9'
 services:
-    vaultwarden-manage:
+    service:
         build: ./build
 #        image: vaultwarden-manage
         container_name: vaultwarden-manage
