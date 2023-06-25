@@ -7,8 +7,7 @@ administration image for self-hosted vaultwarden containers<br>
     sudo docker build --tag vaultwarden-manage .
 
 ## USE (backup)
-    CONTAINER=
-***name***
+    CONTAINER=***name***
     sudo docker run -rm -it -v ${CONTAINER}_data:/src -v /volume1/backup/${CONTAINER}:/dst vaultwarden-manage backup
 
 **assumptions**
