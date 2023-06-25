@@ -5,7 +5,7 @@
   OPERATION=$1 
   shift
   
-  TIMESTAMP=$(date '+%Y%m%d-%H%M')  
+  TIMESTAMP=$(date '+%Y%m%d%H%M')  
   
   if [ -z "${CONTAINER}" ]; then
     echo "env variable CONTAINER not declared"
@@ -28,16 +28,23 @@
 ## -- vaultwarden backup --
 ##
 
-function vw-backup () {
-  BACKUP_FILE=${DEST}/${CONTAINER}-${TIMESTAMP}.tgz
+function vw-backup () 
+{
+  BACKUP_FILE=${DST}/${CONTAINER}-${TIMESTAMP}.tgz
   
   cd ${SRC}
   
   # backup the sqlite3 database
   sqlite3 db.sqlite3 "VACUUM INTO './db-${TIMESTAMP}.sqlite3'"
 
+  ATTACHMENTS=""
+
+  if [ -d "attachments" ]; then
+    ATTACHENTS="attachments"
+  fi
+
   # copy database backup and attachments folder into tarball
-  tar cfz ${BACKUP_FILE} attachments db-${TIMESTAMP}.sqlite3
+  tar cfz ${BACKUP_FILE} ${ATTACHMENTS}  db-${TIMESTAMP}.sqlite3
 
   if [ ! -f ${BACKUP_FILE} ]; then
     echo failed to create backup file \'${BACKUP_FILE}\'
@@ -49,10 +56,25 @@ function vw-backup () {
   exit 0
 }
 
-function vw-restore () {
+
+## -- vaultwarden restore --
+##
+
+function vw-restore () 
+{
+  echo restore not implemented
+  exit 0
 }
 
-function vw-export () {
+
+## -- vaultwarden export --
+##
+
+function vw-export () 
+{
+  echo export not implemented
+  exit 0
+
   EXPORT_FILE=${DST}/${CONTAINER}-${TIMESTAMP}.txt
 
   cd ${SRC}
@@ -67,7 +89,10 @@ function vw-export () {
   exit 0
 }
 
-###
+
+## -- main --
+##
+
 case ${OPERATION} in
   backup)
     vw-backup $*
@@ -79,5 +104,10 @@ case ${OPERATION} in
 
   export)
     vw-export $*
+    ;;
+
+  *)
+    echo unknown operation \'${OPERATION}\'
+    exit 1
     ;;
   esac
