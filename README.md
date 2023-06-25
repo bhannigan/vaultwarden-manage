@@ -7,12 +7,12 @@ administration image for self-hosted vaultwarden containers<br>
     sudo docker build --tag vaultwarden-manage .
 
 ## USE (backup)
-    CONTAINER=*name*
+    CONTAINER=***name***
     sudo docker run -rm -it -v ${CONTAINER}_data:/src -v /volume1/backup/${CONTAINER}:/dst vaultwarden-manage backup
 
-**  assumptions **
-- the persistend volume associated with vaultwarden container X is called X_data<br>
-- there is a directory created under /volume1/backups/X<br>
+**assumptions**
+- the persistend volume associated with vaultwarden container ***name*** is called ***name***_data<br>
+- there is a directory created under /volume1/backups/***name***<br>
 - the above script will be scheduled
 
 ## USE (restore)
