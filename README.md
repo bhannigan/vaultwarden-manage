@@ -8,7 +8,7 @@ administration image for self-hosted vaultwarden containers<br>
 
 ## USE (backup)
     CONTAINER=name
-    sudo docker run -rm -it -v ${CONTAINER}_data:/src -v /volume1/backup/${CONTAINER}:/dst vaultwarden-manage backup
+    sudo docker run --rm -v ${CONTAINER}_data:/src -v /volume1/backup/${CONTAINER}:/dst vaultwarden-manage backup
 
 **assumptions**
 - the persistend volume associated with vaultwarden container ***name*** is called ***name***_data<br>
