@@ -40,7 +40,7 @@ function vw-backup ()
   ATTACHMENTS=""
 
   if [ -d "attachments" ]; then
-    ATTACHENTS="attachments"
+    ATTACHMENTS="attachments"
   fi
 
   # copy database backup and attachments folder into tarball
