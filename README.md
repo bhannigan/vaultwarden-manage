@@ -5,7 +5,7 @@ administration image for self-hosted vaultwarden containers<br>
     git clone https://github.com/bhannigan/vaultwarden-manage.git
     cd vaultwarden-manage
     sudo docker build --tag vaultwarden-manage .
-or
+or<br>
     portainer > images > build image
       name = vaultwarden-manage
       url = https://github.com/bhannigan/vaultwarden-manage.git
