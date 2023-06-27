@@ -1,0 +1,2 @@
+- fix Dockerfile to follow deployment guidelines from phusion/baseimage repository<br>
+- complete restore and extract verb support<br>
