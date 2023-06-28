@@ -9,6 +9,6 @@
    && rm -rf /var/lib/apt/lists/*
 
   COPY src/vaultwarden-manage /
-  RUN ["chmod", "544", "/vaultwarden-manage"]
+  RUN ["chmod", "555", "/vaultwarden-manage"]
   
   ENTRYPOINT [ "/vaultwarden-manage" ]
