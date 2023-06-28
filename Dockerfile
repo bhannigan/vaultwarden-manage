@@ -8,6 +8,7 @@
    && apt-get clean \
    && rm -rf /var/lib/apt/lists/*
 
-  ADD --chmod=544 src/vaultwarden-manage /
+  COPY src/vaultwarden-manage /
+  RUN ["chmod", "544", "/vaultwarden-manage"]
   
   ENTRYPOINT [ "/vaultwarden-manage" ]
